@@ -1,0 +1,47 @@
+describe('API Testing on reqres.in with simplified requests', () => {
+
+        // Test Case 1: GET - Retrieve user details
+    it('should get user details successfully', () => {
+        cy.apiRequest('GET', '/users').then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.be.an('array');
+        });
+    });
+
+    // Test Case 2: POST - Create a new user
+    it('should create a new user successfully', () => {
+        cy.apiRequest('POST', '/users', {
+            body: {
+                name: 'John Doe',
+                email: 'johndoe@email.test',
+                gender: 'male',
+                status: 'active'
+            },
+        }).then((response) => {
+            expect(response.status).to.eq(201);
+            expect(response.body).to.have.property('name', 'John Doe');
+            expect(response.body).to.have.property('email', 'johndoe@email.test');
+            expect(response.body).to.have.property('status','active');
+        });
+    });
+
+
+    // Test Case 3: PUT - Update user details
+    it('should update user details successfully', () => {
+        cy.apiRequest('PUT', '/users/2', {
+            body: {
+                name: 'John Doe Updated'
+            },
+        }).then((response) => {
+            expect(response.status).to.eq(200);
+            expect(response.body).to.have.property('name', 'John Doe Updated');
+            expect(response.body).to.have.property('updatedAt');
+        });
+    });
+    // Test Case 4: DELETE - Delete a user
+    it('should delete a user successfully', () => {
+        cy.apiRequest('DELETE', '/users/2').then((response) => {
+            expect(response.status).to.eq(204);
+        });
+    });
+});
