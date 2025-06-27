@@ -27,7 +27,7 @@ describe('API Testing on gorest with simplified requests', () => {
 
 
     // Test Case 3: PUT - Update user details
-  it("Memperbarui pengguna", () => {
+  it("PUT", () => {
     const updatedData = {
       name: "Jane Doe Updated",
       status: "inactive",
@@ -40,7 +40,7 @@ describe('API Testing on gorest with simplified requests', () => {
   });
 
     // Test Case 4: DELETE - Delete a user
-      it("Menghapus pengguna", () => {
+      it("DELETE", () => {
     cy.apiRequest("DELETE", `/users/${userId}`).then((response) => {
       expect(response.status).to.eq(204);
     });
